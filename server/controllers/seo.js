@@ -21,4 +21,11 @@ module.exports = {
       console.log(error);
     }
   },
+  async config(ctx) {
+    const config = await strapi
+      .plugin('seo')
+      .service('seo')
+      .getConfig({ strapi });
+    ctx.send( config );
+  },
 };

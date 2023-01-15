@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useReducer, createContext } from 'react';
+import React, { useEffect, useState, useReducer, createContext, useRef } from 'react';
 
 import { useCMEditViewDataManager } from '@strapi/helper-plugin';
 
@@ -24,6 +24,7 @@ import { getTrad } from '../../../../utils';
 import reducer from './reducer';
 
 import _ from 'lodash';
+import { fetchConfig } from "../../../../utils/api";
 
 const initialState = {
   preview: true,
@@ -43,6 +44,20 @@ const Summary = () => {
   const { allLayoutData, modifiedData } = useCMEditViewDataManager();
 
   const { contentType, components } = allLayoutData;
+  const hasSocials = modifiedData.seo.hasOwnProperty("metaSocial");
+
+  const [isLoadingConfig, setIsLoadingConfig] = useState(true);
+  const [shouldEffect, setShouldEffect] = useState(false);
+
+  const config = useRef({});
+
+  // Fetching the SEO component & Content-Types
+  useEffect(async () => {
+    config.current = await fetchConfig();
+
+    setShouldEffect(true);
+    setIsLoadingConfig(false);
+  }, [shouldEffect]);
 
   useEffect(() => {
     if (!_.isEqual(localChecks, checks)) {
@@ -88,6 +103,7 @@ const Summary = () => {
           </Button>
         </Box>
 
+        {hasSocials &&
         <Box paddingTop={2}>
           <Button
             fullWidth
@@ -101,8 +117,9 @@ const Summary = () => {
             })}
           </Button>
         </Box>
+        }
 
-        {!isLoading && <PreviewChecks checks={checks} />}
+        {!isLoading && !isLoadingConfig && <PreviewChecks checks={checks} config={config.current} />}
         <Box paddingTop={4}>
           <TextButton
             startIcon={<ArrowRight />}
@@ -121,19 +138,20 @@ const Summary = () => {
             setIsVisible={setIsBrowserPreviewVisible}
           />
         )}
-        {isSocialPreviewVisible && (
+        {hasSocials && isSocialPreviewVisible && (
           <SocialPreview
             modifiedData={modifiedData}
             setIsVisible={setIsSocialPreviewVisible}
           />
         )}
-        {isSeoChecksVisible && (
+        {isSeoChecksVisible && !isLoadingConfig && (
           <SeoChecks
             modifiedData={modifiedData}
             components={components}
             contentType={contentType}
             checks={checks}
             setIsVisible={setIsSeoChecksVisible}
+            config={config.current}
           />
         )}
       </Box>

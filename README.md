@@ -49,20 +49,26 @@ module.exports = ({ env }) => ({
   // ...
   seo: {
     enabled: true,
+    config: {
+      disabledChecks: []
+    }
   },
   // ...
 });
 ```
 
-Then, you'll need to build your admin panel:
+List of checks that can be disabled:
 
-```sh
-# Using Yarn
-yarn build
-
-# Or using NPM
-npm run build
-```
+- wordCount
+- metaRobots
+- metaSocial
+- canonicalUrl
+- metaTitle
+- lastUpdatedAt
+- structuredData
+- metaDescription
+- alternativeText
+- keywordsDensity
 
 ## SEO settings page
 

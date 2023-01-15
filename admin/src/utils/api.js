@@ -19,6 +19,15 @@ const fetchContentTypes = async () => {
   }
 };
 
+const fetchConfig = async () => {
+  try {
+    const data = await request(`/${pluginId}/config`, { method: 'GET' });
+    return data;
+  } catch (error) {
+    return null;
+  }
+}
+
 const createSeoComponent = async () => {
   try {
     const data = await request(
@@ -34,4 +43,4 @@ const createSeoComponent = async () => {
   }
 };
 
-export { fetchSeoComponent, fetchContentTypes, createSeoComponent };
+export { fetchSeoComponent, fetchContentTypes, fetchConfig, createSeoComponent };

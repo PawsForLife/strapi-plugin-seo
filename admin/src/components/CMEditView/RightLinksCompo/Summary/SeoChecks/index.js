@@ -39,6 +39,7 @@ const SeoChecks = ({
   contentType,
   checks,
   setIsVisible,
+  config,
 }) => {
   const { formatMessage } = useIntl();
 
@@ -47,6 +48,7 @@ const SeoChecks = ({
     components,
     contentType
   );
+  const hasSocials = modifiedData.seo.hasOwnProperty("metaSocial");
 
   const seo = _.get(modifiedData, 'seo', null);
 
@@ -78,45 +80,55 @@ const SeoChecks = ({
 
         {seo ? (
           <Box padding={4}>
+            { !config.disabledChecks.includes('metaTitle') &&
             <MetaTitleCheck
               metaTitle={_.get(modifiedData, 'seo.metaTitle', null)}
               checks={checks}
-            />
+            /> }
+            { !config.disabledChecks.includes('metaDescription') &&
             <MetaDescriptionCheck
               metaDescription={_.get(modifiedData, 'seo.metaDescription', null)}
               checks={checks}
-            />
-            <WordCountCheck wordCount={wordCount} checks={checks} />
+            /> }
+            { !config.disabledChecks.includes('wordCount') &&
+            <WordCountCheck wordCount={wordCount} checks={checks} /> }
+            { !config.disabledChecks.includes('keywordsDensity') &&
             <KeywordDensityCheck
               keywordsDensity={keywordsDensity}
               checks={checks}
-            />
+            /> }
+            {hasSocials && !config.disabledChecks.includes('metaSocial') &&
             <MetaSocialCheck
               metaSocial={_.get(modifiedData, 'seo.metaSocial', null)}
               checks={checks}
-            />
+            /> }
+            { !config.disabledChecks.includes('canonicalUrl') &&
             <CanonicalUrlCheck
               canonicalUrl={_.get(modifiedData, 'seo.canonicalURL', null)}
               checks={checks}
-            />
+            /> }
+            { !config.disabledChecks.includes('structuredData') &&
             <StructuredDataCheck
               structuredData={_.get(modifiedData, 'seo.structuredData', null)}
               checks={checks}
-            />
+            /> }
+            { !config.disabledChecks.includes('metaRobots') &&
             <MetaRobotCheck
               metaRobots={_.get(modifiedData, 'seo.metaRobots', null)}
               checks={checks}
-            />
+            /> }
+            { !config.disabledChecks.includes('alternativeText') &&
             <AlternativeTextCheck
               intersections={_.get(emptyAltCount, 'intersections', null)}
               richTextAlts={_.get(emptyAltCount, 'richTextAlts', null)}
               altTexts={_.get(emptyAltCount, 'altTexts', null)}
               checks={checks}
-            />
+            /> }
+            { !config.disabledChecks.includes('lastUpdatedAt') &&
             <LastUpdatedAtCheck
               updatedAt={_.get(modifiedData, 'updatedAt', null)}
               checks={checks}
-            />
+            /> }
           </Box>
         ) : (
           <Box paddingLeft={4}>

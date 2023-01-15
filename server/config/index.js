@@ -1,6 +1,8 @@
 'use strict';
 
 module.exports = {
-  default: {},
+  default: {
+    disabledChecks: [],
+  },
   validator() {},
 };

@@ -1,10 +1,10 @@
 'use strict';
 
 const _ = require('lodash');
-const fetch = require('node-fetch');
 
 const seoContent = require('../components/seo.json');
 const metaSocialContent = require('../components/meta-social.json');
+const config = require('../config');
 
 module.exports = ({ strapi }) => ({
   getSeoComponent() {
@@ -76,4 +76,7 @@ module.exports = ({ strapi }) => ({
       }
     }
   },
+  getConfig() {
+    return strapi.config.get( `plugin.seo`, config.default );
+  }
 });

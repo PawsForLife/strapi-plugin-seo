@@ -12,16 +12,24 @@ import Dot from '@strapi/icons/Dot';
 
 import _ from 'lodash';
 
-const SeoChecker = ({ checks }) => {
+const SeoChecker = ({ checks, config }) => {
   const { formatMessage } = useIntl();
+  const filteredChecks = Object.keys(checks)
+    .filter(key => !config.disabledChecks.includes(key))
+    .reduce((obj, key) => {
+      obj[key] = checks[key];
+      return obj;
+    }, {});
 
-  const good = Object.values(checks).filter(
+  const good = Object.values(filteredChecks).filter(
     (x) => x.color === 'success'
   ).length;
-  const improvements = Object.values(checks).filter(
+  const improvements = Object.values(filteredChecks).filter(
     (x) => x.color === 'warning'
   ).length;
-  const bad = Object.values(checks).filter((x) => x.color === 'danger').length;
+  const bad = Object.values(filteredChecks).filter(
+    (x) => x.color === 'danger'
+  ).length;
 
   return (
     <Box paddingTop={4}>

@@ -41,7 +41,7 @@ const SeoChecker = ({ checks, config }) => {
       </Typography>
 
       <Box paddingTop={4}>
-        <Stack size={2} key="good" horizontal background="neutral0">
+        <Stack spacing={2} key="good" horizontal background="neutral0">
           <Icon
             aria-hidden={true}
             colors={(theme) => ({
@@ -59,7 +59,7 @@ const SeoChecker = ({ checks, config }) => {
             : {good}
           </Typography>
         </Stack>
-        <Stack size={2} key="improvements" horizontal background="neutral0">
+        <Stack spacing={2} key="improvements" horizontal background="neutral0">
           <Icon
             aria-hidden={true}
             colors={(theme) => ({
@@ -77,7 +77,7 @@ const SeoChecker = ({ checks, config }) => {
             : {improvements}
           </Typography>
         </Stack>
-        <Stack size={2} key="bad" horizontal background="neutral0">
+        <Stack spacing={2} key="bad" horizontal background="neutral0">
           <Icon
             aria-hidden={true}
             colors={(theme) => ({

@@ -1,6 +1,6 @@
 {
   "name": "@strapi/plugin-seo",
-  "version": "1.7.7",
+  "version": "1.9.2",
   "description": "Make your Strapi content SEO friendly.",
   "strapi": {
     "name": "seo",
@@ -13,6 +13,7 @@
     "url": "https://github.com/strapi/strapi-plugin-seo.git"
   },
   "dependencies": {
+    "date-fns": "^2.29.3",
     "eslint-plugin-react-hooks": "^4.3.0",
     "lodash": "^4.17.21",
     "showdown": "^1.9.1"

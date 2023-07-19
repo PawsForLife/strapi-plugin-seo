@@ -26,5 +26,13 @@ module.exports = {
         policies: [],
       },
     },
+    {
+      method: 'GET',
+      path: '/config',
+      handler: 'seo.config',
+      config: {
+        policies: [ 'admin::isAuthenticatedAdmin' ],
+      },
+    },
   ],
 };

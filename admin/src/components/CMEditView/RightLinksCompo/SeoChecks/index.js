@@ -38,6 +38,7 @@ const SeoChecks = ({
   contentType,
   checks,
   setIsVisible,
+  config,
 }) => {
   const { formatMessage } = useIntl();
 
@@ -46,6 +47,7 @@ const SeoChecks = ({
     components,
     contentType
   );
+  const hasSocials = modifiedData.seo.hasOwnProperty("metaSocial");
 
   const seo = _.get(modifiedData, 'seo', null);
 
@@ -75,13 +77,13 @@ const SeoChecks = ({
 
         {seo ? (
           <Box padding={4}>
-            {checks?.metaTitle && (
+            {!config.disabledChecks.includes('metaTitle') && (
               <MetaTitleCheck
                 metaTitle={_.get(modifiedData, 'seo.metaTitle', null)}
                 checks={checks}
               />
             )}
-            {checks?.metaDescription && (
+            {!config.disabledChecks.includes('metaDescription') && (
               <MetaDescriptionCheck
                 metaDescription={_.get(
                   modifiedData,
@@ -91,40 +93,40 @@ const SeoChecks = ({
                 checks={checks}
               />
             )}
-            {checks?.wordCount && (
+            {!config.disabledChecks.includes('wordCount') && (
               <WordCountCheck wordCount={wordCount} checks={checks} />
             )}
-            {checks?.keywordsDensity && (
+            {!config.disabledChecks.includes('keywordsDensity') && (
               <KeywordDensityCheck
                 keywordsDensity={keywordsDensity}
                 checks={checks}
               />
             )}
-            {checks?.metaSocial && (
+            {hasSocials && !config.disabledChecks.includes('metaSocial') && (
               <MetaSocialCheck
                 metaSocial={_.get(modifiedData, 'seo.metaSocial', null)}
                 checks={checks}
               />
             )}
-            {checks?.canonicalUrl && (
+            {!config.disabledChecks.includes('canonicalUrl') && (
               <CanonicalUrlCheck
                 canonicalUrl={_.get(modifiedData, 'seo.canonicalURL', null)}
                 checks={checks}
               />
             )}
-            {checks?.structuredData && (
+            {!config.disabledChecks.includes('structuredData') && (
               <StructuredDataCheck
                 structuredData={_.get(modifiedData, 'seo.structuredData', null)}
                 checks={checks}
               />
             )}
-            {checks?.metaRobots && (
+            {!config.disabledChecks.includes('metaRobots') && (
               <MetaRobotCheck
                 metaRobots={_.get(modifiedData, 'seo.metaRobots', null)}
                 checks={checks}
               />
             )}
-            {checks?.alternativeText && (
+            {!config.disabledChecks.includes('alternativeText') && (
               <AlternativeTextCheck
                 intersections={_.get(emptyAltCount, 'intersections', null)}
                 richTextAlts={_.get(emptyAltCount, 'richTextAlts', null)}
@@ -132,7 +134,7 @@ const SeoChecks = ({
                 checks={checks}
               />
             )}
-            {checks?.lastUpdatedAt && (
+            {!config.disabledChecks.includes('lastUpdatedAt') && (
               <LastUpdatedAtCheck
                 updatedAt={_.get(modifiedData, 'updatedAt', null)}
                 checks={checks}

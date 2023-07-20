@@ -14,8 +14,9 @@ import _ from 'lodash';
 
 const SeoChecker = ({ checks, config }) => {
   const { formatMessage } = useIntl();
+  const disabledChecks = _.get(config, 'disabledChecks', []);
   const filteredChecks = Object.keys(checks)
-    .filter(key => !config.disabledChecks.includes(key))
+    .filter(key => !disabledChecks.includes(key))
     .reduce((obj, key) => {
       obj[key] = checks[key];
       return obj;

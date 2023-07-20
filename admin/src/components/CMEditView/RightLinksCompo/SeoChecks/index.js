@@ -47,9 +47,9 @@ const SeoChecks = ({
     components,
     contentType
   );
-  const hasSocials = modifiedData.seo.hasOwnProperty("metaSocial");
-
   const seo = _.get(modifiedData, 'seo', null);
+  const hasSocials = _.has(seo, "metaSocial");
+  const disabledChecks = _.get(config, 'disabledChecks', []);
 
   return (
     <ModalLayout
@@ -77,13 +77,13 @@ const SeoChecks = ({
 
         {seo ? (
           <Box padding={4}>
-            {!config.disabledChecks.includes('metaTitle') && (
+            {!disabledChecks.includes('metaTitle') && (
               <MetaTitleCheck
                 metaTitle={_.get(modifiedData, 'seo.metaTitle', null)}
                 checks={checks}
               />
             )}
-            {!config.disabledChecks.includes('metaDescription') && (
+            {!disabledChecks.includes('metaDescription') && (
               <MetaDescriptionCheck
                 metaDescription={_.get(
                   modifiedData,
@@ -93,40 +93,40 @@ const SeoChecks = ({
                 checks={checks}
               />
             )}
-            {!config.disabledChecks.includes('wordCount') && (
+            {!disabledChecks.includes('wordCount') && (
               <WordCountCheck wordCount={wordCount} checks={checks} />
             )}
-            {!config.disabledChecks.includes('keywordsDensity') && (
+            {!disabledChecks.includes('keywordsDensity') && (
               <KeywordDensityCheck
                 keywordsDensity={keywordsDensity}
                 checks={checks}
               />
             )}
-            {hasSocials && !config.disabledChecks.includes('metaSocial') && (
+            {hasSocials && !disabledChecks.includes('metaSocial') && (
               <MetaSocialCheck
                 metaSocial={_.get(modifiedData, 'seo.metaSocial', null)}
                 checks={checks}
               />
             )}
-            {!config.disabledChecks.includes('canonicalUrl') && (
+            {!disabledChecks.includes('canonicalUrl') && (
               <CanonicalUrlCheck
                 canonicalUrl={_.get(modifiedData, 'seo.canonicalURL', null)}
                 checks={checks}
               />
             )}
-            {!config.disabledChecks.includes('structuredData') && (
+            {!disabledChecks.includes('structuredData') && (
               <StructuredDataCheck
                 structuredData={_.get(modifiedData, 'seo.structuredData', null)}
                 checks={checks}
               />
             )}
-            {!config.disabledChecks.includes('metaRobots') && (
+            {!disabledChecks.includes('metaRobots') && (
               <MetaRobotCheck
                 metaRobots={_.get(modifiedData, 'seo.metaRobots', null)}
                 checks={checks}
               />
             )}
-            {!config.disabledChecks.includes('alternativeText') && (
+            {!disabledChecks.includes('alternativeText') && (
               <AlternativeTextCheck
                 intersections={_.get(emptyAltCount, 'intersections', null)}
                 richTextAlts={_.get(emptyAltCount, 'richTextAlts', null)}
@@ -134,7 +134,7 @@ const SeoChecks = ({
                 checks={checks}
               />
             )}
-            {!config.disabledChecks.includes('lastUpdatedAt') && (
+            {!disabledChecks.includes('lastUpdatedAt') && (
               <LastUpdatedAtCheck
                 updatedAt={_.get(modifiedData, 'updatedAt', null)}
                 checks={checks}

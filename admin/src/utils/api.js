@@ -1,10 +1,9 @@
-import { request } from '@strapi/helper-plugin';
+import {request} from '@strapi/helper-plugin';
 import pluginId from '../pluginId';
 
 const fetchSeoComponent = async () => {
   try {
-    const data = await request(`/${pluginId}/component`, { method: 'GET' });
-    return data;
+    return await request(`/${pluginId}/component`, {method: 'GET'});
   } catch (error) {
     return null;
   }
@@ -12,8 +11,7 @@ const fetchSeoComponent = async () => {
 
 const fetchContentTypes = async () => {
   try {
-    const data = await request(`/${pluginId}/content-types`, { method: 'GET' });
-    return data;
+    return await request(`/${pluginId}/content-types`, {method: 'GET'});
   } catch (error) {
     return null;
   }
@@ -21,8 +19,7 @@ const fetchContentTypes = async () => {
 
 const fetchConfig = async () => {
   try {
-    const data = await request(`/${pluginId}/config`, { method: 'GET' });
-    return data;
+    return await request(`/${pluginId}/config`, {method: 'GET'});
   } catch (error) {
     return null;
   }

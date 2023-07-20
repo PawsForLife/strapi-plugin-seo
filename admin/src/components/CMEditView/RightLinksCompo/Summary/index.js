@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useReducer, createContext, useRef } from 'react';
+import React, { useEffect, useState, useReducer, createContext } from 'react';
 
 import { useCMEditViewDataManager } from '@strapi/helper-plugin';
 
@@ -44,21 +44,14 @@ const Summary = () => {
 
   const { contentType, components } = allLayoutData;
   const hasSocials = modifiedData.seo.hasOwnProperty("metaSocial");
-
+  const [config, setConfig] = useState({});
   const [isLoadingConfig, setIsLoadingConfig] = useState(true);
-  const [shouldEffect, setShouldEffect] = useState(false);
-
-  const config = useRef({});
-
-  // Fetching the SEO component & Content-Types
-  useEffect(async () => {
-    config.current = await fetchConfig();
-
-    setShouldEffect(true);
-    setIsLoadingConfig(false);
-  }, [shouldEffect]);
 
   useEffect(() => {
+    fetchConfig().then((data) => {
+      setConfig(data);
+      setIsLoadingConfig(false)
+    });
     const fetchChecks = async () => {
       if (!(JSON.stringify(localChecks) === JSON.stringify(checks))) {
         if (checks?.preview) {
@@ -128,7 +121,7 @@ const Summary = () => {
         </Box>
         }
 
-        {!isLoading && !isLoadingConfig && <PreviewChecks checks={checks} config={config.current} />}
+        {!isLoading && !isLoadingConfig && <PreviewChecks checks={checks} config={config} />}
         <Box paddingTop={4}>
           <TextButton
             startIcon={<ArrowRight />}
@@ -160,7 +153,7 @@ const Summary = () => {
             contentType={contentType}
             checks={checks}
             setIsVisible={setIsSeoChecksVisible}
-            config={config.current}
+            config={config}
           />
         )}
       </Box>

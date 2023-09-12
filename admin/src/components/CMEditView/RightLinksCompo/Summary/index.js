@@ -24,6 +24,7 @@ import { getTrad } from '../../../../utils';
 import reducer from './reducer';
 
 import { fetchConfig } from "../../../../utils/api";
+import _ from 'lodash';
 
 const initialState = {
   preview: true,
@@ -43,7 +44,8 @@ const Summary = () => {
   const { allLayoutData, layout, modifiedData } = useCMEditViewDataManager();
 
   const { contentType, components } = allLayoutData;
-  const hasSocials = modifiedData.seo.hasOwnProperty("metaSocial");
+  const seo = _.get(modifiedData, 'seo', null);
+  const hasSocials = _.has(seo, "metaSocial");
   const [config, setConfig] = useState({});
   const [isLoadingConfig, setIsLoadingConfig] = useState(true);
 

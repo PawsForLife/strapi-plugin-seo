@@ -1,6 +1,6 @@
 {
   "name": "@strapi/plugin-seo",
-  "version": "1.9.2",
+  "version": "1.9.6",
   "description": "Make your Strapi content SEO friendly.",
   "strapi": {
     "name": "seo",
@@ -16,7 +16,8 @@
     "date-fns": "^2.29.3",
     "eslint-plugin-react-hooks": "^4.3.0",
     "lodash": "^4.17.21",
-    "showdown": "^1.9.1"
+    "showdown": "^1.9.1",
+    "styled-components": "^6.0.7"
   },
   "resolutions": {
     "yargs": "^17.2.1"
@@ -37,7 +38,7 @@
     }
   ],
   "engines": {
-    "node": ">=12.x.x <=18.x.x",
+    "node": ">=18.x.x <=20.x.x",
     "npm": ">=6.0.0"
   },
   "license": "MIT"
